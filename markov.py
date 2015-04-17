@@ -55,32 +55,52 @@ class SimpleMarkovGenerator(object):
             words.append(word)
             key = (key[1], word)
 
-        return " ".join(words)
+            text = " ".join(words)
+
+        return text
+
+class AllLowercaseWordsMixin(object):
+    """ Makes the markov text result all lowercase."""
+
+    def make_lower(self, text):
+        text = text.lower()
+
+        return text
+
+class TweetMarkov(SimpleMarkovGenerator,AllLowercaseWordsMixin):
+    """Example subclass"""
 
 if __name__ == "__main__":
 
     # Get a list of filenames from sys.argv
     filenames = sys.argv[1:]
 
-    # Make an instance of the class
-    markov_text_gen = SimpleMarkovGenerator()
+    # # Make an instance of the class
+    # markov_text_gen = SimpleMarkovGenerator()
 
-    # we should call the read_files method with the list of filenames
-    a = markov_text_gen.read_files(filenames)
-    b = markov_text_gen.make_chains(a)
 
-    # we should call the make_text method 5x
+    # # we should call the read_files method with the list of filenames
+    # a = markov_text_gen.read_files(filenames)
+    # b = markov_text_gen.make_chains(a)
+
+    # # we should call the make_text method 5x
    
-    print markov_text_gen.make_text(b)
-    print
+    # print markov_text_gen.make_text(b)
+    # print
 
-    print markov_text_gen.make_text(b)
-    print 
+    # print markov_text_gen.make_text(b)
+    # print 
 
-    print markov_text_gen.make_text(b)
-    print
+    # print markov_text_gen.make_text(b)
+    # print
 
-    print markov_text_gen.make_text(b)
-    print
-    
-    print markov_text_gen.make_text(b)
+    # print markov_text_gen.make_text(b)
+    # print
+
+    # print markov_text_gen.make_text(b)
+
+    markov_text_lower = TweetMarkov()
+    a = markov_text_lower.read_files(filenames)
+    b = markov_text_lower.make_chains(a)
+    c = markov_text_lower.make_text(b)
+    print markov_text_lower.make_lower(c)
